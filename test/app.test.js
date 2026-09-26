@@ -14,7 +14,8 @@ const app = require("../app");
 test("GET /health returns status ok", async () => {
   const response = await request(app).get("/health");
 
-  assert.strictEqual(response.statusCode, 200);
+  // INTENTIONAL FAILURE FOR CI/CD DEMO
+  assert.strictEqual(response.statusCode, 500);
 
   assert.deepStrictEqual(response.body, {
     status: "ok"
@@ -53,15 +54,10 @@ test("Equipment contains quantity and borrower fields", async () => {
   const firstItem = response.body[0];
 
   assert.ok(firstItem.id);
-
   assert.ok(firstItem.name);
-
   assert.ok(firstItem.category);
-
   assert.ok(firstItem.status);
-
   assert.ok(firstItem.totalQuantity);
-
   assert.ok(firstItem.availableQuantity);
 
   assert.ok(
