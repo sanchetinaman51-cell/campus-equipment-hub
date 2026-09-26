@@ -251,39 +251,32 @@ app.post("/api/equipment/:id/borrow", (req, res) => {
   const id = Number(req.params.id);
   const borrowerName = req.body.borrowerName?.trim();
 
-  // Check borrower name
   if (!borrowerName) {
     return res.status(400).json({
       message: "Borrower name is required"
     });
   }
 
-  // Find equipment
   const item = equipment.find(
     (equipmentItem) => equipmentItem.id === id
   );
 
-  // Check equipment exists
   if (!item) {
     return res.status(404).json({
       message: "Equipment not found"
     });
   }
 
-  // Check availability
   if (item.availableQuantity <= 0) {
     return res.status(400).json({
       message: "No units of this equipment are currently available"
     });
   }
 
-  // Reduce available quantity
   item.availableQuantity -= 1;
 
-  // Add borrower
   item.borrowers.push(borrowerName);
 
-  // Update status
   if (item.availableQuantity === 0) {
     item.status = "Borrowed";
   } else {
@@ -304,27 +297,22 @@ app.post("/api/equipment/:id/return", (req, res) => {
   const id = Number(req.params.id);
   const borrowerName = req.body.borrowerName?.trim();
 
-  // Find equipment
   const item = equipment.find(
     (equipmentItem) => equipmentItem.id === id
   );
 
-  // Check equipment exists
   if (!item) {
     return res.status(404).json({
       message: "Equipment not found"
     });
   }
 
-  // Check if there is anything to return
   if (item.availableQuantity >= item.totalQuantity) {
     return res.status(400).json({
       message: "All units of this equipment are already available"
     });
   }
 
-  // If borrower name is provided,
-  // check whether this borrower has borrowed the equipment
   if (borrowerName) {
     const borrowerIndex = item.borrowers.indexOf(borrowerName);
 
@@ -334,18 +322,13 @@ app.post("/api/equipment/:id/return", (req, res) => {
       });
     }
 
-    // Remove borrower
     item.borrowers.splice(borrowerIndex, 1);
   } else {
-    // If no borrower name is provided,
-    // remove the most recent borrower
     item.borrowers.pop();
   }
 
-  // Increase available quantity
   item.availableQuantity += 1;
 
-  // Update status
   if (item.availableQuantity > 0) {
     item.status = "Available";
   }
@@ -363,6 +346,16 @@ app.post("/api/equipment/:id/return", (req, res) => {
 app.get("/health", (req, res) => {
   res.json({
     status: "ok"
+  });
+});
+
+/* =========================
+   VERSION / COMMIT ID
+========================= */
+
+app.get("/api/version", (req, res) => {
+  res.json({
+    commit: process.env.RENDER_GIT_COMMIT || "local"
   });
 });
 

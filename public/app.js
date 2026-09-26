@@ -4,7 +4,6 @@
 
 let equipmentData = [];
 
-
 /* =========================
    LOAD EQUIPMENT
 ========================= */
@@ -28,7 +27,6 @@ async function loadEquipment() {
   }
 }
 
-
 /* =========================
    DISPLAY EQUIPMENT
 ========================= */
@@ -44,7 +42,6 @@ function displayEquipment(equipment) {
         No equipment found.
       </div>
     `;
-
     return;
   }
 
@@ -127,7 +124,6 @@ function displayEquipment(equipment) {
   });
 }
 
-
 /* =========================
    UPDATE DASHBOARD STATS
 ========================= */
@@ -145,28 +141,22 @@ function updateStats(equipment) {
 
   const borrowed = total - available;
 
-  document.getElementById(
-    "totalEquipment"
-  ).textContent = total;
+  document.getElementById("totalEquipment").textContent =
+    total;
 
-  document.getElementById(
-    "availableEquipment"
-  ).textContent = available;
+  document.getElementById("availableEquipment").textContent =
+    available;
 
-  document.getElementById(
-    "borrowedEquipment"
-  ).textContent = borrowed;
+  document.getElementById("borrowedEquipment").textContent =
+    borrowed;
 }
 
-
 /* =========================
-   POPULATE BORROW DROPDOWN
+   BORROW SELECT
 ========================= */
 
 function populateBorrowSelect(equipment) {
-  const select = document.getElementById(
-    "equipmentSelect"
-  );
+  const select = document.getElementById("equipmentSelect");
 
   select.innerHTML = `
     <option value="">
@@ -175,9 +165,7 @@ function populateBorrowSelect(equipment) {
   `;
 
   equipment
-    .filter(
-      (item) => item.availableQuantity > 0
-    )
+    .filter((item) => item.availableQuantity > 0)
     .forEach((item) => {
       const option = document.createElement("option");
 
@@ -190,9 +178,8 @@ function populateBorrowSelect(equipment) {
     });
 }
 
-
 /* =========================
-   POPULATE RETURN DROPDOWN
+   RETURN SELECT
 ========================= */
 
 function populateReturnSelect(equipment) {
@@ -207,9 +194,7 @@ function populateReturnSelect(equipment) {
   `;
 
   equipment
-    .filter(
-      (item) => item.borrowers.length > 0
-    )
+    .filter((item) => item.borrowers.length > 0)
     .forEach((item) => {
       const option = document.createElement("option");
 
@@ -222,83 +207,70 @@ function populateReturnSelect(equipment) {
     });
 }
 
-
 /* =========================
    BORROW FORM
 ========================= */
 
 document
   .getElementById("borrowForm")
-  .addEventListener(
-    "submit",
-    async function (event) {
-      event.preventDefault();
+  .addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-      const name = document
-        .getElementById("borrowerName")
-        .value
-        .trim();
+    const name = document
+      .getElementById("borrowerName")
+      .value
+      .trim();
 
-      const equipmentId = document
-        .getElementById("equipmentSelect")
-        .value;
+    const equipmentId = document
+      .getElementById("equipmentSelect")
+      .value;
 
-      if (!name) {
-        alert("Please enter your name.");
-        return;
-      }
-
-      if (!equipmentId) {
-        alert("Please select equipment.");
-        return;
-      }
-
-      try {
-        const response = await fetch(
-          `/api/equipment/${equipmentId}/borrow`,
-          {
-            method: "POST",
-
-            headers: {
-              "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-              borrowerName: name
-            })
-          }
-        );
-
-        const result = await response.json();
-
-        if (!response.ok) {
-          alert(result.message);
-          return;
-        }
-
-        alert(
-          `Success! ${result.equipment.name} has been borrowed by ${name}.`
-        );
-
-        document
-          .getElementById("borrowForm")
-          .reset();
-
-        await loadEquipment();
-
-      } catch (error) {
-        console.error(
-          "Borrow error:",
-          error
-        );
-
-        alert(
-          "Unable to borrow equipment."
-        );
-      }
+    if (!name) {
+      alert("Please enter your name.");
+      return;
     }
-  );
 
+    if (!equipmentId) {
+      alert("Please select equipment.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `/api/equipment/${equipmentId}/borrow`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            borrowerName: name
+          })
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        alert(result.message);
+        return;
+      }
+
+      alert(
+        `Success! ${result.equipment.name} has been borrowed by ${name}.`
+      );
+
+      document
+        .getElementById("borrowForm")
+        .reset();
+
+      await loadEquipment();
+    } catch (error) {
+      console.error("Borrow error:", error);
+
+      alert("Unable to borrow equipment.");
+    }
+  });
 
 /* =========================
    RETURN FORM
@@ -306,76 +278,64 @@ document
 
 document
   .getElementById("returnForm")
-  .addEventListener(
-    "submit",
-    async function (event) {
-      event.preventDefault();
+  .addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-      const name = document
-        .getElementById("returnBorrowerName")
-        .value
-        .trim();
+    const name = document
+      .getElementById("returnBorrowerName")
+      .value
+      .trim();
 
-      const equipmentId = document
-        .getElementById("returnEquipmentSelect")
-        .value;
+    const equipmentId = document
+      .getElementById("returnEquipmentSelect")
+      .value;
 
-      if (!name) {
-        alert("Please enter your name.");
-        return;
-      }
-
-      if (!equipmentId) {
-        alert("Please select equipment.");
-        return;
-      }
-
-      try {
-        const response = await fetch(
-          `/api/equipment/${equipmentId}/return`,
-          {
-            method: "POST",
-
-            headers: {
-              "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-              borrowerName: name
-            })
-          }
-        );
-
-        const result = await response.json();
-
-        if (!response.ok) {
-          alert(result.message);
-          return;
-        }
-
-        alert(
-          `Success! ${result.equipment.name} has been returned by ${name}.`
-        );
-
-        document
-          .getElementById("returnForm")
-          .reset();
-
-        await loadEquipment();
-
-      } catch (error) {
-        console.error(
-          "Return error:",
-          error
-        );
-
-        alert(
-          "Unable to return equipment."
-        );
-      }
+    if (!name) {
+      alert("Please enter your name.");
+      return;
     }
-  );
 
+    if (!equipmentId) {
+      alert("Please select equipment.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `/api/equipment/${equipmentId}/return`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            borrowerName: name
+          })
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        alert(result.message);
+        return;
+      }
+
+      alert(
+        `Success! ${result.equipment.name} has been returned by ${name}.`
+      );
+
+      document
+        .getElementById("returnForm")
+        .reset();
+
+      await loadEquipment();
+    } catch (error) {
+      console.error("Return error:", error);
+
+      alert("Unable to return equipment.");
+    }
+  });
 
 /* =========================
    SEARCH EQUIPMENT
@@ -383,30 +343,48 @@ document
 
 document
   .getElementById("search")
-  .addEventListener(
-    "input",
-    function () {
-      const searchText = this.value
-        .toLowerCase()
-        .trim();
+  .addEventListener("input", function () {
+    const searchText = this.value
+      .toLowerCase()
+      .trim();
 
-      const filtered = equipmentData.filter(
-        (item) =>
-          item.name
-            .toLowerCase()
-            .includes(searchText) ||
-          item.category
-            .toLowerCase()
-            .includes(searchText)
-      );
+    const filtered = equipmentData.filter(
+      (item) =>
+        item.name
+          .toLowerCase()
+          .includes(searchText) ||
+        item.category
+          .toLowerCase()
+          .includes(searchText)
+    );
 
-      displayEquipment(filtered);
-    }
-  );
-
+    displayEquipment(filtered);
+  });
 
 /* =========================
-   START APPLICATION
+   LOAD DEPLOYED COMMIT ID
+========================= */
+
+async function loadCommitId() {
+  try {
+    const response = await fetch("/api/version");
+
+    if (!response.ok) {
+      throw new Error("Failed to load commit ID");
+    }
+
+    const data = await response.json();
+
+    document.getElementById("commitId").textContent =
+      data.commit;
+  } catch (error) {
+    console.error("Version error:", error);
+  }
+}
+
+/* =========================
+   INITIALIZE APPLICATION
 ========================= */
 
 loadEquipment();
+loadCommitId();
