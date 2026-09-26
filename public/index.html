@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Campus Equipment Hub</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       NAVIGATION
+  ========================== -->
+
+  <nav class="navbar">
+
+    <div class="logo">
+      🎓 Campus Equipment Hub
+    </div>
+
+    <div class="nav-links">
+      <a href="#dashboard">Dashboard</a>
+      <a href="#equipment">Equipment</a>
+      <a href="#borrow">Borrow</a>
+      <a href="#return">Return</a>
+    </div>
+
+  </nav>
+
+
+  <!-- =========================
+       HERO SECTION
+  ========================== -->
+
+  <section class="hero" id="dashboard">
+
+    <div class="hero-content">
+
+      <span class="hero-badge">
+        🚀 Smart Campus Equipment Management
+      </span>
+
+      <h1>
+        Campus Equipment
+        <span>Hub</span>
+      </h1>
+
+      <p>
+        Borrow, return and manage laboratory equipment
+        easily from one centralized platform.
+      </p>
+
+      <a href="#equipment" class="hero-button">
+        Explore Equipment →
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       DASHBOARD STATISTICS
+  ========================== -->
+
+  <section class="stats-section">
+
+    <div class="stat-card">
+
+      <div class="stat-icon">
+        📦
+      </div>
+
+      <div>
+        <h2 id="totalEquipment">0</h2>
+        <p>Total Equipment</p>
+      </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+      <div class="stat-icon">
+        ✅
+      </div>
+
+      <div>
+        <h2 id="availableEquipment">0</h2>
+        <p>Available Units</p>
+      </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+      <div class="stat-icon">
+        📋
+      </div>
+
+      <div>
+        <h2 id="borrowedEquipment">0</h2>
+        <p>Borrowed Units</p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       EQUIPMENT SECTION
+  ========================== -->
+
+  <section class="equipment-section" id="equipment">
+
+    <div class="section-heading">
+
+      <span>
+        EQUIPMENT INVENTORY
+      </span>
+
+      <h2>
+        Available Campus Equipment
+      </h2>
+
+      <p>
+        Browse laboratory and technical equipment available
+        for student projects and practical work.
+      </p>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-container">
+
+      <input
+        type="text"
+        id="search"
+        placeholder="🔍 Search equipment..."
+      >
+
+    </div>
+
+
+    <!-- EQUIPMENT GRID -->
+
+    <div class="equipment-grid">
+
+      <!-- Equipment cards are loaded by JavaScript -->
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       BORROW SECTION
+  ========================== -->
+
+  <section class="form-section" id="borrow">
+
+    <div class="form-card">
+
+      <div class="form-title">
+
+        <span class="form-icon">
+          📥
+        </span>
+
+        <div>
+
+          <h2>
+            Borrow Equipment
+          </h2>
+
+          <p>
+            Select an available equipment item.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <form id="borrowForm">
+
+        <label for="borrowerName">
+          Student Name
+        </label>
+
+        <input
+          type="text"
+          id="borrowerName"
+          placeholder="Enter your name"
+          required
+        >
+
+
+        <label for="equipmentSelect">
+          Equipment
+        </label>
+
+        <select id="equipmentSelect" required>
+
+          <option value="">
+            Select equipment
+          </option>
+
+        </select>
+
+
+        <button type="submit">
+          Borrow Equipment
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       RETURN SECTION
+  ========================== -->
+
+  <section class="form-section return-section" id="return">
+
+    <div class="form-card">
+
+      <div class="form-title">
+
+        <span class="form-icon">
+          📤
+        </span>
+
+        <div>
+
+          <h2>
+            Return Equipment
+          </h2>
+
+          <p>
+            Return equipment that you previously borrowed.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <form id="returnForm">
+
+        <label for="returnBorrowerName">
+          Student Name
+        </label>
+
+        <input
+          type="text"
+          id="returnBorrowerName"
+          placeholder="Enter your name"
+          required
+        >
+
+
+        <label for="returnEquipmentSelect">
+          Equipment
+        </label>
+
+        <select
+          id="returnEquipmentSelect"
+          required
+        >
+
+          <option value="">
+            Select equipment
+          </option>
+
+        </select>
+
+
+        <button type="submit" class="return-button">
+          Return Equipment
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       ABOUT / DEVOPS SECTION
+  ========================== -->
+
+  <section class="devops-section">
+
+    <div class="section-heading">
+
+      <span>
+        DEVOPS PIPELINE
+      </span>
+
+      <h2>
+        Built with DevOps & CI/CD
+      </h2>
+
+      <p>
+        This application demonstrates automated software
+        delivery using modern DevOps practices.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline">
+
+      <div class="pipeline-step">
+        <strong>👨‍💻</strong>
+        <span>Developer</span>
+      </div>
+
+      <div class="pipeline-arrow">
+        →
+      </div>
+
+      <div class="pipeline-step">
+        <strong>📦</strong>
+        <span>GitHub</span>
+      </div>
+
+      <div class="pipeline-arrow">
+        →
+      </div>
+
+      <div class="pipeline-step">
+        <strong>🔍</strong>
+        <span>Lint</span>
+      </div>
+
+      <div class="pipeline-arrow">
+        →
+      </div>
+
+      <div class="pipeline-step">
+        <strong>🧪</strong>
+        <span>Tests</span>
+      </div>
+
+      <div class="pipeline-arrow">
+        →
+      </div>
+
+      <div class="pipeline-step">
+        <strong>🐳</strong>
+        <span>Docker</span>
+      </div>
+
+      <div class="pipeline-arrow">
+        →
+      </div>
+
+      <div class="pipeline-step">
+        <strong>🚀</strong>
+        <span>Deploy</span>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div>
+      🎓 Campus Equipment Hub
+    </div>
+
+    <p>
+      Cloud Computing & DevOps Project
+    </p>
+
+    <p>
+      Built with Node.js • Express • Docker • GitHub Actions
+    </p>
+
+  </footer>
+
+
+  <script src="app.js"></script>
+
+</body>
+</html>
