@@ -56,3 +56,13 @@ Docker Build
 Render Deployment
    ↓
 Live Application
+
+## API Endpoints
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/equipment` | Returns all equipment information |
+| POST | `/api/equipment/:id/borrow` | Borrows available equipment |
+| POST | `/api/equipment/:id/return` | Returns borrowed equipment |
+| GET | `/health` | Checks whether the application is running |
+| GET | `/api/version` | Returns the deployed commit ID |
