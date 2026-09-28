@@ -895,3 +895,14 @@ footer p {
     transform: rotate(90deg);
   }
 }
+
+.footer-commit {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+.footer-commit span {
+  font-weight: 700;
+}
