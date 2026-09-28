@@ -89,3 +89,10 @@ campus-equipment-hub/
 ├── package-lock.json
 ├── .gitignore
 └── README.md
+
+## Running the Project
+
+Install the project dependencies:
+
+```bash
+npm install
