@@ -66,3 +66,26 @@ Live Application
 | POST | `/api/equipment/:id/return` | Returns borrowed equipment |
 | GET | `/health` | Checks whether the application is running |
 | GET | `/api/version` | Returns the deployed commit ID |
+
+## Project Structure
+
+```text
+campus-equipment-hub/
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml
+├── public/
+│   ├── index.html
+│   ├── style.css
+│   ├── app.js
+│   └── favicon.svg
+├── test/
+│   └── app.test.js
+├── app.js
+├── server.js
+├── Dockerfile
+├── eslint.config.js
+├── package.json
+├── package-lock.json
+├── .gitignore
+└── README.md
